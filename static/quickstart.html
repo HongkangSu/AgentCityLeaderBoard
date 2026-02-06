@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Start - AgentCity</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Microsoft YaHei', Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #1e40af;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 8px 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #1e40af;
+            background: #dbeafe;
+        }
+
+        .nav-link.active {
+            color: #1e40af;
+            background: #bfdbfe;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(90deg, #1e3a8a, #1e40af);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        .section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #0f172a;
+            padding-bottom: 16px;
+            border-bottom: 3px solid #1e40af;
+        }
+
+        .subsection-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 32px 0 16px;
+            color: #0f172a;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .code-block code {
+            color: #0bf7bc;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(to right, #dbeafe, #eff6ff);
+            border-left: 4px solid #1e40af;
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin: 24px 0;
+        }
+
+        .info-box p {
+            color: #1e3a8a;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .info-box strong {
+            color: #1e40af;
+        }
+
+        /* Steps */
+        ol {
+            margin-left: 24px;
+            margin-top: 16px;
+        }
+
+        ol li {
+            margin-bottom: 12px;
+            color: #475569;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        ol li strong {
+            color: #0f172a;
+        }
+
+        p {
+            color: #475569;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            background: #fff;
+            margin-top: 60px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="/" class="logo">
+                <div class="logo-icon">AC</div>
+                AgentCity
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/quickstart" class="nav-link active">Quick Start</a>
+                <a href="/leaderboard" class="nav-link">LeaderBoard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Quick Start Guide</h1>
+        <p>Get started with AgentCity in minutes</p>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Installation Section -->
+        <section class="section">
+            <h2 class="section-title">Installation & Setup</h2>
+
+            <h3 class="subsection-title">1. Install Dependencies</h3>
+            <p>First, install the required Python packages:</p>
+            <div class="code-block">
+                <code>pip install -r requirements.txt</code>
+            </div>
+
+            <h3 class="subsection-title">2. Configure Environment Variables</h3>
+            <p>Set up your API credentials by exporting the following environment variables:</p>
+            <div class="code-block">
+                <code>export ANTHROPIC_BASE_URL=""</code><br>
+                <code>export ANTHROPIC_API_KEY=""</code>
+            </div>
+
+            <h3 class="subsection-title">3. Start the Server</h3>
+            <p>Launch the AgentCity server using uvicorn:</p>
+            <div class="code-block">
+                <code>uvicorn server:app --host 0.0.0.0 --port 8000</code>
+            </div>
+        </section>
+
+        <!-- Verification Section -->
+        <section class="section">
+            <h2 class="section-title">Verify Migration</h2>
+            <p>To verify that the models have been successfully migrated and are working correctly:</p>
+
+            <ol>
+                <li><strong>Download LibCity datasets:</strong> Download the required datasets and place them in the <code>/Bigscity-LibCity/raw_data</code> directory.</li>
+
+                <li><strong>Run a model:</strong> Execute the following command to test a migrated model:
+                    <div class="code-block">
+                        <code>python run_model.py --task traffic_state_pred --model model_name --dataset dataset_name</code>
+                    </div>
+                </li>
+
+                <li><strong>Replace placeholders:</strong>
+                    <ul style="margin-left: 24px; margin-top: 8px;">
+                        <li><code>model_name</code>: One of the migrated models (e.g., PatchSTG, LSTGAN, MLCAFormer)</li>
+                        <li><code>dataset_name</code>: Your target dataset name</li>
+                    </ul>
+                </li>
+
+                <li><strong>Check results:</strong> After execution, check the output for evaluation metrics and verify the model is running correctly.</li>
+            </ol>
+
+            <div class="info-box">
+                <p><strong>Example:</strong> <code>python run_model.py --task traffic_state_pred --model PatchSTG --dataset METR_LA</code></p>
+            </div>
+        </section>
+
+        <!-- Next Steps Section -->
+        <section class="section">
+            <h2 class="section-title">Next Steps</h2>
+            <p>Now that you have AgentCity set up, you can:</p>
+            <ul style="margin-left: 24px; margin-top: 16px; line-height: 2;">
+                <li>Explore the <a href="/leaderboard" style="color: #1e40af; text-decoration: none; font-weight: 600;">LeaderBoard</a> to see performance metrics of migrated models</li>
+                <li>Experiment with different models and datasets</li>
+                <li>Contribute new model migrations to the project</li>
+                <li>Tune hyperparameters to improve model performance</li>
+            </ul>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>AgentCity - Multi-Agent Framework for Spatiotemporal Benchmarks</p>
+    </footer>
+</body>
+</html>

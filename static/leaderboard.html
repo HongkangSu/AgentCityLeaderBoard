@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Prediction LeaderBoard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Microsoft YaHei', Arial, Helvetica, sans-serif;
+            background: #f5f5f5;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 0 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #1e40af;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logo:hover {
+            opacity: 0.8;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-link {
+            padding: 8px 20px;
+            color: #64748b;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #1e40af;
+            background: #dbeafe;
+        }
+
+        .nav-link.active {
+            color: #1e40af;
+            background: #bfdbfe;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(90deg, #1e3a8a, #1e40af);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(30, 64, 175, 0.4);
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 24px;
+            min-height: 600px;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 24px;
+            color: #64748b;
+            background: #fff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .breadcrumb a {
+            color: #1e40af;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #3b82f6;
+        }
+
+        .breadcrumb svg {
+            width: 16px;
+            height: 16px;
+            color: #94a3b8;
+        }
+
+        /* Task Cards Grid */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: #0f172a;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 28px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .card:hover {
+            border-color: #1e40af;
+            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(30, 64, 175, 0.3);
+        }
+
+        .card-icon svg {
+            width: 28px;
+            height: 28px;
+            color: white;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0f172a;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Table Styles */
+        .table-section {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .table-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            background: linear-gradient(to right, #f8fafc, #fff);
+        }
+
+        .table-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Step Tabs */
+        .step-tabs {
+            display: flex;
+            gap: 6px;
+            padding: 6px;
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .step-tab {
+            padding: 10px 18px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+
+        .step-tab:hover {
+            color: #1e40af;
+            background: rgba(30, 64, 175, 0.1);
+        }
+
+        .step-tab.active {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: #fff;
+            box-shadow: 0 3px 8px rgba(30, 64, 175, 0.3);
+        }
+
+        /* Metric Selector */
+        .metric-selector {
+            display: flex;
+            gap: 6px;
+            padding: 6px;
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .metric-btn {
+            padding: 10px 18px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #64748b;
+            transition: all 0.3s;
+        }
+
+        .metric-btn:hover {
+            color: #1e40af;
+            background: rgba(30, 64, 175, 0.1);
+        }
+
+        .metric-btn.active {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: #fff;
+            box-shadow: 0 3px 8px rgba(30, 64, 175, 0.3);
+        }
+
+        /* Table */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 14px 18px;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        th:hover {
+            color: #1e40af;
+            background: #f1f5f9;
+        }
+
+        th.sorted {
+            color: #1e40af;
+            background: #dbeafe;
+        }
+
+        th .sort-icon {
+            display: inline-block;
+            margin-left: 6px;
+            font-size: 0.7rem;
+        }
+
+        td {
+            padding: 18px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Rank Badge */
+        .rank-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .rank-1 {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(251, 191, 36, 0.4);
+        }
+
+        .rank-2 {
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(156, 163, 175, 0.4);
+        }
+
+        .rank-3 {
+            background: linear-gradient(135deg, #cd7f32, #b87333);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(205, 127, 50, 0.4);
+        }
+
+        .rank-default {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        /* Model Name */
+        .model-name {
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        /* Metric Values */
+        .metric-value {
+            font-family: 'JetBrains Mono', 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            color: #0f172a;
+        }
+
+        .metric-value.best {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .metric-value.inf {
+            color: #ef4444;
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px;
+            color: #64748b;
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid #e2e8f0;
+            border-top-color: #1e40af;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 24px;
+            color: #64748b;
+        }
+
+        .empty-state svg {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 60px;
+            background: #fff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .step-tabs, .metric-selector {
+                flex-wrap: wrap;
+            }
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Info Banner */
+        .info-banner {
+            background: linear-gradient(to right, #dbeafe, #eff6ff);
+            border: 1px solid #93c5fd;
+            border-radius: 10px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.9rem;
+            color: #1e3a8a;
+        }
+
+        .info-banner svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            color: #1e40af;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="/" class="logo">
+                <div class="logo-icon">AC</div>
+                AgentCity
+            </a>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/quickstart" class="nav-link">Quick Start</a>
+                <a href="/leaderboard" class="nav-link active">LeaderBoard</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Traffic Prediction LeaderBoard</h1>
+        <p>Comprehensive benchmark for traffic prediction models across multiple datasets and metrics</p>
+        <div class="stats-bar" id="statsBar">
+            <!-- Dynamic stats -->
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div id="breadcrumb" class="breadcrumb"></div>
+        <div id="content"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Traffic Prediction LeaderBoard - Benchmarking the State of the Art</p>
+    </footer>
+
+    <script>
+        const API_BASE = '';
+        let currentTask = null;
+        let currentDataset = null;
+        let currentStep = 'average';
+        let currentSortField = 'mae';
+        let currentSortDir = 'asc';
+        let rankingsData = [];
+        let tasksCache = null;
+        let datasetsCache = {};
+
+        // Parse URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                task: params.get('task'),
+                dataset: params.get('dataset')
+            };
+        }
+
+        // Update URL without reloading
+        function updateUrl(task, dataset) {
+            const params = new URLSearchParams();
+            if (task) params.set('task', task);
+            if (dataset) params.set('dataset', dataset);
+            const newUrl = `${window.location.pathname}${params.toString() ? '?' + params.toString() : ''}`;
+            window.history.pushState({}, '', newUrl);
+        }
+
+        async function fetchJSON(url) {
+            const response = await fetch(url);
+            return response.json();
+        }
+
+        function formatValue(val, isBest = false) {
+            if (val === null || val === undefined) return '<span class="metric-value">-</span>';
+            if (val === Infinity || val === 'inf' || !isFinite(val)) return '<span class="metric-value inf">inf</span>';
+            const cls = isBest ? 'metric-value best' : 'metric-value';
+            return `<span class="${cls}">${val.toFixed(4)}</span>`;
+        }
+
+        function updateBreadcrumb() {
+            const breadcrumb = document.getElementById('breadcrumb');
+            if (!currentTask) {
+                breadcrumb.innerHTML = '';
+                breadcrumb.style.display = 'none';
+                return;
+            }
+
+            breadcrumb.style.display = 'flex';
+            let html = `<a href="/leaderboard">Tasks</a>`;
+            html += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>`;
+            html += `<a href="/leaderboard?task=${currentTask}">${currentTask}</a>`;
+
+            if (currentDataset) {
+                html += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>`;
+                html += `<span>${currentDataset}</span>`;
+            }
+
+            breadcrumb.innerHTML = html;
+        }
+
+        async function updateStats() {
+            const statsBar = document.getElementById('statsBar');
+            if (!tasksCache) {
+                tasksCache = await fetchJSON(`${API_BASE}/api/tasks`);
+            }
+
+            let totalDatasets = 0;
+
+            for (const task of tasksCache) {
+                if (!datasetsCache[task]) {
+                    datasetsCache[task] = await fetchJSON(`${API_BASE}/api/tasks/${task}/datasets`);
+                }
+                totalDatasets += datasetsCache[task].length;
+            }
+
+            statsBar.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value">${tasksCache.length}</div>
+                    <div class="stat-label">Tasks</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${totalDatasets}</div>
+                    <div class="stat-label">Datasets</div>
+                </div>
+            `;
+        }
+
+        async function showTasks() {
+            currentTask = null;
+            currentDataset = null;
+            updateUrl(null, null);
+            updateBreadcrumb();
+
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading"><div class="spinner"></div>Loading tasks...</div>';
+
+            if (!tasksCache) {
+                tasksCache = await fetchJSON(`${API_BASE}/api/tasks`);
+            }
+            await updateStats();
+
+            const taskDescriptions = {
+                'traffic_state_pred': 'Traffic flow and state prediction using spatial-temporal models. Includes speed, volume, and occupancy forecasting.',
+                'eta': 'Estimated Time of Arrival prediction for route planning and navigation applications.',
+                'traj_loc_pred': 'Trajectory location prediction for next POI recommendation and mobility pattern analysis.'
+            };
+
+            const taskIcons = {
+                'traffic_state_pred': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>',
+                'eta': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
+                'traj_loc_pred': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>'
+            };
+
+            let html = '<h2 class="section-title">Select a Task</h2><div class="cards-grid">';
+            for (const task of tasksCache) {
+                if (!datasetsCache[task]) {
+                    datasetsCache[task] = await fetchJSON(`${API_BASE}/api/tasks/${task}/datasets`);
+                }
+                const numDatasets = datasetsCache[task].length;
+
+                html += `
+                    <a href="/leaderboard?task=${task}" class="card">
+                        <div class="card-icon">
+                            ${taskIcons[task] || taskIcons['traffic_state_pred']}
+                        </div>
+                        <h3>${task}</h3>
+                        <p>${taskDescriptions[task] || 'Click to view datasets and leaderboard'}</p>
+                        <div class="card-meta">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                                ${numDatasets} datasets
+                            </span>
+                        </div>
+                    </a>
+                `;
+            }
+            html += '</div>';
+
+            content.innerHTML = html;
+        }
+
+        async function showDatasets(task) {
+            currentTask = task;
+            currentDataset = null;
+            updateUrl(task, null);
+            updateBreadcrumb();
+
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading"><div class="spinner"></div>Loading datasets...</div>';
+
+            if (!datasetsCache[task]) {
+                datasetsCache[task] = await fetchJSON(`${API_BASE}/api/tasks/${task}/datasets`);
+            }
+
+            const datasets = datasetsCache[task];
+
+            let html = `<h2 class="section-title">${task} - Select a Dataset</h2>`;
+
+            if (task === 'traffic_state_pred') {
+                html += `
+                    <div class="info-banner">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
+                        </svg>
+                        <span>Metrics shown for prediction horizons at step 3, 6, 9, 12 (15min, 30min, 45min, 60min) and their average.</span>
+                    </div>
+                `;
+            }
+
+            html += '<div class="cards-grid">';
+            for (const dataset of datasets) {
+                html += `
+                    <a href="/leaderboard?task=${task}&dataset=${dataset}" class="card">
+                        <div class="card-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" /></svg>
+                        </div>
+                        <h3>${dataset}</h3>
+                        <p>View model leaderboard and performance metrics</p>
+                    </a>
+                `;
+            }
+            html += '</div>';
+
+            content.innerHTML = html;
+        }
+
+        async function showLeaderboard(task, dataset) {
+            currentTask = task;
+            currentDataset = dataset;
+            currentStep = 'average';
+            // Set default sort field based on task
+            if (task === 'traj_loc_pred') {
+                currentSortField = 'acc_1';
+            } else {
+                currentSortField = 'mae';
+            }
+            currentSortDir = task === 'traj_loc_pred' ? 'desc' : 'asc';
+            updateUrl(task, dataset);
+            updateBreadcrumb();
+
+            const content = document.getElementById('content');
+            content.innerHTML = '<div class="loading"><div class="spinner"></div>Loading leaderboard...</div>';
+
+            rankingsData = await fetchJSON(`${API_BASE}/api/tasks/${task}/datasets/${dataset}/rankings`);
+
+            renderLeaderboardTable();
+        }
+
+        function renderLeaderboardTable() {
+            const content = document.getElementById('content');
+            const task = currentTask;
+            const dataset = currentDataset;
+
+            // Step tabs for traffic_state_pred
+            let stepTabsHtml = '';
+            if (task === 'traffic_state_pred') {
+                const steps = [
+                    { key: 'step_3', label: 'Step 3 (15min)' },
+                    { key: 'step_6', label: 'Step 6 (30min)' },
+                    { key: 'step_9', label: 'Step 9 (45min)' },
+                    { key: 'step_12', label: 'Step 12 (60min)' },
+                    { key: 'average', label: 'Average' }
+                ];
+                stepTabsHtml = '<div class="step-tabs">';
+                for (const step of steps) {
+                    stepTabsHtml += `<button class="step-tab ${currentStep === step.key ? 'active' : ''}" onclick="changeStep('${step.key}')">${step.label}</button>`;
+                }
+                stepTabsHtml += '</div>';
+            }
+
+            // Metric selector - different for traj_loc_pred
+            let metricSelectorHtml = '';
+            if (task === 'traj_loc_pred') {
+                metricSelectorHtml = `
+                    <div class="metric-selector">
+                        <button class="metric-btn ${currentSortField === 'acc_1' ? 'active' : ''}" onclick="changeSortField('acc_1')">Sort by ACC@1</button>
+                        <button class="metric-btn ${currentSortField === 'acc_5' ? 'active' : ''}" onclick="changeSortField('acc_5')">Sort by ACC@5</button>
+                        <button class="metric-btn ${currentSortField === 'acc_10' ? 'active' : ''}" onclick="changeSortField('acc_10')">Sort by ACC@10</button>
+                    </div>
+                `;
+            } else {
+                metricSelectorHtml = `
+                    <div class="metric-selector">
+                        <button class="metric-btn ${currentSortField === 'mae' ? 'active' : ''}" onclick="changeSortField('mae')">Sort by MAE</button>
+                        <button class="metric-btn ${currentSortField === 'mape' ? 'active' : ''}" onclick="changeSortField('mape')">Sort by MAPE</button>
+                        <button class="metric-btn ${currentSortField === 'rmse' ? 'active' : ''}" onclick="changeSortField('rmse')">Sort by RMSE</button>
+                    </div>
+                `;
+            }
+
+            // Sort data
+            let sortedData = [...rankingsData];
+            sortedData.sort((a, b) => {
+                let valA, valB;
+
+                if (task === 'traj_loc_pred') {
+                    valA = a.data[currentSortField] ?? -Infinity;
+                    valB = b.data[currentSortField] ?? -Infinity;
+                    // For accuracy metrics, higher is better, so we want desc by default
+                    if (valA === -Infinity && valB === -Infinity) return 0;
+                    if (valA === -Infinity) return 1;
+                    if (valB === -Infinity) return -1;
+                    return currentSortDir === 'desc' ? valB - valA : valA - valB;
+                } else if (task === 'traffic_state_pred') {
+                    valA = a.data[currentStep]?.[currentSortField] ?? Infinity;
+                    valB = b.data[currentStep]?.[currentSortField] ?? Infinity;
+                } else {
+                    const fieldMap = {'mae': 'masked_mae', 'mape': 'masked_mape', 'rmse': 'masked_rmse'};
+                    valA = a.data[fieldMap[currentSortField]] ?? Infinity;
+                    valB = b.data[fieldMap[currentSortField]] ?? Infinity;
+                }
+
+                if (valA === Infinity && valB === Infinity) return 0;
+                if (valA === Infinity) return 1;
+                if (valB === Infinity) return -1;
+
+                return currentSortDir === 'asc' ? valA - valB : valB - valA;
+            });
+
+            // Find best values for highlighting
+            let tableHtml = '';
+
+            if (task === 'traj_loc_pred') {
+                // Find best values (highest for accuracy/MRR/NDCG)
+                let bestAcc1 = -Infinity, bestAcc5 = -Infinity, bestAcc10 = -Infinity;
+                let bestAcc20 = -Infinity, bestMrr20 = -Infinity, bestNdcg20 = -Infinity;
+                for (const item of sortedData) {
+                    const d = item.data;
+                    if (d.acc_1 > bestAcc1 && isFinite(d.acc_1)) bestAcc1 = d.acc_1;
+                    if (d.acc_5 > bestAcc5 && isFinite(d.acc_5)) bestAcc5 = d.acc_5;
+                    if (d.acc_10 > bestAcc10 && isFinite(d.acc_10)) bestAcc10 = d.acc_10;
+                    if (d.acc_20 > bestAcc20 && isFinite(d.acc_20)) bestAcc20 = d.acc_20;
+                    if (d.mrr_20 > bestMrr20 && isFinite(d.mrr_20)) bestMrr20 = d.mrr_20;
+                    if (d.ndcg_20 > bestNdcg20 && isFinite(d.ndcg_20)) bestNdcg20 = d.ndcg_20;
+                }
+
+                tableHtml = `
+                    <h2 class="section-title">${dataset} LeaderBoard</h2>
+                    <div class="table-section">
+                        <div class="table-header">
+                            <div class="table-controls">
+                                ${metricSelectorHtml}
+                            </div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px">Rank</th>
+                                        <th>Model</th>
+                                        <th onclick="toggleSort('acc_1')" class="${currentSortField === 'acc_1' ? 'sorted' : ''}">
+                                            ACC@1 <span class="sort-icon">${currentSortField === 'acc_1' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('acc_5')" class="${currentSortField === 'acc_5' ? 'sorted' : ''}">
+                                            ACC@5 <span class="sort-icon">${currentSortField === 'acc_5' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('acc_10')" class="${currentSortField === 'acc_10' ? 'sorted' : ''}">
+                                            ACC@10 <span class="sort-icon">${currentSortField === 'acc_10' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('acc_20')" class="${currentSortField === 'acc_20' ? 'sorted' : ''}">
+                                            ACC@20 <span class="sort-icon">${currentSortField === 'acc_20' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('mrr_20')" class="${currentSortField === 'mrr_20' ? 'sorted' : ''}">
+                                            MRR@20 <span class="sort-icon">${currentSortField === 'mrr_20' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('ndcg_20')" class="${currentSortField === 'ndcg_20' ? 'sorted' : ''}">
+                                            NDCG@20 <span class="sort-icon">${currentSortField === 'ndcg_20' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+
+                sortedData.forEach((item, index) => {
+                    const rank = index + 1;
+                    let rankClass = 'rank-default';
+                    if (rank === 1) rankClass = 'rank-1';
+                    else if (rank === 2) rankClass = 'rank-2';
+                    else if (rank === 3) rankClass = 'rank-3';
+
+                    const d = item.data;
+
+                    tableHtml += `
+                        <tr>
+                            <td><span class="rank-badge ${rankClass}">${rank}</span></td>
+                            <td class="model-name">${item.model}</td>
+                            <td>${formatValue(d.acc_1, d.acc_1 === bestAcc1)}</td>
+                            <td>${formatValue(d.acc_5, d.acc_5 === bestAcc5)}</td>
+                            <td>${formatValue(d.acc_10, d.acc_10 === bestAcc10)}</td>
+                            <td>${formatValue(d.acc_20, d.acc_20 === bestAcc20)}</td>
+                            <td>${formatValue(d.mrr_20, d.mrr_20 === bestMrr20)}</td>
+                            <td>${formatValue(d.ndcg_20, d.ndcg_20 === bestNdcg20)}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Original logic for traffic_state_pred and eta
+                let bestMae = Infinity, bestMape = Infinity, bestRmse = Infinity;
+                for (const item of sortedData) {
+                    let mae, mape, rmse;
+                    if (task === 'traffic_state_pred') {
+                        const stepData = item.data[currentStep] || {};
+                        mae = stepData.mae;
+                        mape = stepData.mape;
+                        rmse = stepData.rmse;
+                    } else {
+                        mae = item.data.masked_mae;
+                        mape = item.data.masked_mape;
+                        rmse = item.data.masked_rmse;
+                    }
+                    if (mae < bestMae && isFinite(mae)) bestMae = mae;
+                    if (mape < bestMape && isFinite(mape)) bestMape = mape;
+                    if (rmse < bestRmse && isFinite(rmse)) bestRmse = rmse;
+                }
+
+                tableHtml = `
+                    <h2 class="section-title">${dataset} LeaderBoard</h2>
+                    <div class="table-section">
+                        <div class="table-header">
+                            ${stepTabsHtml}
+                            <div class="table-controls">
+                                ${metricSelectorHtml}
+                            </div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px">Rank</th>
+                                        <th>Model</th>
+                                        <th onclick="toggleSort('mae')" class="${currentSortField === 'mae' ? 'sorted' : ''}">
+                                            MAE <span class="sort-icon">${currentSortField === 'mae' ? (currentSortDir === 'asc' ? '▲' : '▼') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('mape')" class="${currentSortField === 'mape' ? 'sorted' : ''}">
+                                            MAPE <span class="sort-icon">${currentSortField === 'mape' ? (currentSortDir === 'asc' ? '▲' : '▼') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('rmse')" class="${currentSortField === 'rmse' ? 'sorted' : ''}">
+                                            RMSE <span class="sort-icon">${currentSortField === 'rmse' ? (currentSortDir === 'asc' ? '▲' : '▼') : ''}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+
+                sortedData.forEach((item, index) => {
+                    const rank = index + 1;
+                    let rankClass = 'rank-default';
+                    if (rank === 1) rankClass = 'rank-1';
+                    else if (rank === 2) rankClass = 'rank-2';
+                    else if (rank === 3) rankClass = 'rank-3';
+
+                    let mae, mape, rmse;
+
+                    if (task === 'traffic_state_pred') {
+                        const stepData = item.data[currentStep] || {};
+                        mae = stepData.mae;
+                        mape = stepData.mape;
+                        rmse = stepData.rmse;
+                    } else {
+                        mae = item.data.masked_mae;
+                        mape = item.data.masked_mape;
+                        rmse = item.data.masked_rmse;
+                    }
+
+                    tableHtml += `
+                        <tr>
+                            <td><span class="rank-badge ${rankClass}">${rank}</span></td>
+                            <td class="model-name">${item.model}</td>
+                            <td>${formatValue(mae, mae === bestMae)}</td>
+                            <td>${formatValue(mape, mape === bestMape)}</td>
+                            <td>${formatValue(rmse, rmse === bestRmse)}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+
+            content.innerHTML = tableHtml;
+        }
+
+        function changeStep(step) {
+            currentStep = step;
+            renderLeaderboardTable();
+        }
+
+        function changeSortField(field) {
+            if (currentSortField === field) {
+                currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortField = field;
+                // For traj_loc_pred, higher is better (desc), for others lower is better (asc)
+                currentSortDir = currentTask === 'traj_loc_pred' ? 'desc' : 'asc';
+            }
+            renderLeaderboardTable();
+        }
+
+        function toggleSort(field) {
+            if (currentSortField === field) {
+                currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortField = field;
+                // For traj_loc_pred, higher is better (desc), for others lower is better (asc)
+                currentSortDir = currentTask === 'traj_loc_pred' ? 'desc' : 'asc';
+            }
+            renderLeaderboardTable();
+        }
+
+        // Initialize
+        async function init() {
+            const params = getUrlParams();
+            if (params.task && params.dataset) {
+                await showLeaderboard(params.task, params.dataset);
+            } else if (params.task) {
+                await showDatasets(params.task);
+            } else {
+                await showTasks();
+            }
+            await updateStats();
+        }
+
+        init();
+    </script>
+</body>
+</html>

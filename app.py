@@ -83,6 +83,16 @@ def index():
     return send_from_directory('static', 'index.html')
 
 
+@app.route('/quickstart')
+def quickstart():
+    return send_from_directory('static', 'quickstart.html')
+
+
+@app.route('/leaderboard')
+def leaderboard():
+    return send_from_directory('static', 'leaderboard.html')
+
+
 @app.route('/api/tasks')
 def get_tasks():
     """Get list of all tasks"""
