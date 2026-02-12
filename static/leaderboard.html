@@ -702,13 +702,15 @@
             const taskDescriptions = {
                 'traffic_state_pred': 'Traffic flow and state prediction using spatial-temporal models. Includes speed, volume, and occupancy forecasting.',
                 'eta': 'Estimated Time of Arrival prediction for route planning and navigation applications.',
-                'traj_loc_pred': 'Trajectory location prediction for next POI recommendation and mobility pattern analysis.'
+                'traj_loc_pred': 'Trajectory location prediction for next POI recommendation and mobility pattern analysis.',
+                'map_matching': 'Map matching task for aligning GPS trajectories to road networks. Metrics include RMF, AN, and AL.'
             };
 
             const taskIcons = {
                 'traffic_state_pred': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>',
                 'eta': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>',
-                'traj_loc_pred': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>'
+                'traj_loc_pred': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>',
+                'map_matching': '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" /></svg>'
             };
 
             let html = '<h2 class="section-title">Select a Task</h2><div class="cards-grid">';
@@ -791,10 +793,19 @@
             // Set default sort field based on task
             if (task === 'traj_loc_pred') {
                 currentSortField = 'acc_1';
+            } else if (task === 'map_matching') {
+                currentSortField = 'rmf';
             } else {
                 currentSortField = 'mae';
             }
-            currentSortDir = task === 'traj_loc_pred' ? 'desc' : 'asc';
+            if (task === 'traj_loc_pred') {
+                currentSortDir = 'desc';
+            } else if (task === 'map_matching') {
+                // RMF is the default sort field, lower is better
+                currentSortDir = 'asc';
+            } else {
+                currentSortDir = 'asc';
+            }
             updateUrl(task, dataset);
             updateBreadcrumb();
 
@@ -828,9 +839,17 @@
                 stepTabsHtml += '</div>';
             }
 
-            // Metric selector - different for traj_loc_pred
+            // Metric selector - different for each task
             let metricSelectorHtml = '';
-            if (task === 'traj_loc_pred') {
+            if (task === 'map_matching') {
+                metricSelectorHtml = `
+                    <div class="metric-selector">
+                        <button class="metric-btn ${currentSortField === 'rmf' ? 'active' : ''}" onclick="changeSortField('rmf')">Sort by RMF</button>
+                        <button class="metric-btn ${currentSortField === 'an' ? 'active' : ''}" onclick="changeSortField('an')">Sort by AN</button>
+                        <button class="metric-btn ${currentSortField === 'al' ? 'active' : ''}" onclick="changeSortField('al')">Sort by AL</button>
+                    </div>
+                `;
+            } else if (task === 'traj_loc_pred') {
                 metricSelectorHtml = `
                     <div class="metric-selector">
                         <button class="metric-btn ${currentSortField === 'acc_1' ? 'active' : ''}" onclick="changeSortField('acc_1')">Sort by ACC@1</button>
@@ -853,7 +872,14 @@
             sortedData.sort((a, b) => {
                 let valA, valB;
 
-                if (task === 'traj_loc_pred') {
+                if (task === 'map_matching') {
+                    valA = a.data[currentSortField] ?? -Infinity;
+                    valB = b.data[currentSortField] ?? -Infinity;
+                    if (valA === -Infinity && valB === -Infinity) return 0;
+                    if (valA === -Infinity) return 1;
+                    if (valB === -Infinity) return -1;
+                    return currentSortDir === 'desc' ? valB - valA : valA - valB;
+                } else if (task === 'traj_loc_pred') {
                     valA = a.data[currentSortField] ?? -Infinity;
                     valB = b.data[currentSortField] ?? -Infinity;
                     // For accuracy metrics, higher is better, so we want desc by default
@@ -880,7 +906,71 @@
             // Find best values for highlighting
             let tableHtml = '';
 
-            if (task === 'traj_loc_pred') {
+            if (task === 'map_matching') {
+                // Find best values: RMF lowest is best, AN/AL highest is best
+                let bestRmf = Infinity, bestAn = -Infinity, bestAl = -Infinity;
+                for (const item of sortedData) {
+                    const d = item.data;
+                    if (d.rmf != null && d.rmf < bestRmf && isFinite(d.rmf)) bestRmf = d.rmf;
+                    if (d.an != null && d.an > bestAn && isFinite(d.an)) bestAn = d.an;
+                    if (d.al != null && d.al > bestAl && isFinite(d.al)) bestAl = d.al;
+                }
+
+                tableHtml = `
+                    <h2 class="section-title">${dataset} LeaderBoard</h2>
+                    <div class="table-section">
+                        <div class="table-header">
+                            <div class="table-controls">
+                                ${metricSelectorHtml}
+                            </div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th style="width: 60px">Rank</th>
+                                        <th>Model</th>
+                                        <th onclick="toggleSort('rmf')" class="${currentSortField === 'rmf' ? 'sorted' : ''}">
+                                            RMF <span class="sort-icon">${currentSortField === 'rmf' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('an')" class="${currentSortField === 'an' ? 'sorted' : ''}">
+                                            AN <span class="sort-icon">${currentSortField === 'an' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                        <th onclick="toggleSort('al')" class="${currentSortField === 'al' ? 'sorted' : ''}">
+                                            AL <span class="sort-icon">${currentSortField === 'al' ? (currentSortDir === 'desc' ? '▼' : '▲') : ''}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                `;
+
+                sortedData.forEach((item, index) => {
+                    const rank = index + 1;
+                    let rankClass = 'rank-default';
+                    if (rank === 1) rankClass = 'rank-1';
+                    else if (rank === 2) rankClass = 'rank-2';
+                    else if (rank === 3) rankClass = 'rank-3';
+
+                    const d = item.data;
+
+                    tableHtml += `
+                        <tr>
+                            <td><span class="rank-badge ${rankClass}">${rank}</span></td>
+                            <td class="model-name">${item.model}</td>
+                            <td>${formatValue(d.rmf, d.rmf === bestRmf)}</td>
+                            <td>${formatValue(d.an, d.an === bestAn)}</td>
+                            <td>${formatValue(d.al, d.al === bestAl)}</td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += `
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            } else if (task === 'traj_loc_pred') {
                 // Find best values (highest for accuracy/MRR/NDCG)
                 let bestAcc1 = -Infinity, bestAcc5 = -Infinity, bestAcc10 = -Infinity;
                 let bestAcc20 = -Infinity, bestMrr20 = -Infinity, bestNdcg20 = -Infinity;
@@ -1061,8 +1151,7 @@
                 currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
             } else {
                 currentSortField = field;
-                // For traj_loc_pred, higher is better (desc), for others lower is better (asc)
-                currentSortDir = currentTask === 'traj_loc_pred' ? 'desc' : 'asc';
+                currentSortDir = getDefaultSortDir(currentTask, field);
             }
             renderLeaderboardTable();
         }
@@ -1072,10 +1161,18 @@
                 currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
             } else {
                 currentSortField = field;
-                // For traj_loc_pred, higher is better (desc), for others lower is better (asc)
-                currentSortDir = currentTask === 'traj_loc_pred' ? 'desc' : 'asc';
+                currentSortDir = getDefaultSortDir(currentTask, field);
             }
             renderLeaderboardTable();
+        }
+
+        function getDefaultSortDir(task, field) {
+            if (task === 'traj_loc_pred') return 'desc';
+            if (task === 'map_matching') {
+                // RMF: lower is better (asc), AN/AL: higher is better (desc)
+                return field === 'rmf' ? 'asc' : 'desc';
+            }
+            return 'asc';
         }
 
         // Initialize

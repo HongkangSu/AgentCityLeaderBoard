@@ -62,6 +62,60 @@ def parse_eta_csv(filepath):
     return {}
 
 
+def parse_map_matching_csv(filepath):
+    """Parse map_matching CSV file and extract RMF, AN, AL"""
+    with open(filepath, 'r') as f:
+        reader = csv.reader(f)
+        headers = next(reader)
+        headers_map = {h.strip(): i for i, h in enumerate(headers)}
+        for row in reader:
+            if row:
+                try:
+                    return {
+                        'rmf': float(row[headers_map['RMF']]),
+                        'an': float(row[headers_map['AN']]),
+                        'al': float(row[headers_map['AL']])
+                    }
+                except (ValueError, KeyError, IndexError):
+                    continue
+    return {}
+
+
+def parse_map_matching_json(filepath):
+    """Parse map_matching JSON file and extract best RMF (smallest), AN (largest), AL (largest) across all runs"""
+    with open(filepath, 'r') as f:
+        data = json.load(f)
+
+    # Skip GeoJSON files (they don't contain metrics)
+    if data.get('type') == 'FeatureCollection':
+        return None
+
+    best_rmf = None
+    best_an = None
+    best_al = None
+    details = data.get('details', {})
+    for group in details.values():
+        for run in group.values():
+            rmf = run.get('RMF')
+            an = run.get('AN')
+            al = run.get('AL')
+            # RMF: smaller is better
+            if rmf is not None and (best_rmf is None or rmf < best_rmf):
+                best_rmf = rmf
+            # AN: larger is better
+            if an is not None and (best_an is None or an > best_an):
+                best_an = an
+            # AL: larger is better
+            if al is not None and (best_al is None or al > best_al):
+                best_al = al
+
+    return {
+        'rmf': best_rmf,
+        'an': best_an,
+        'al': best_al
+    }
+
+
 def parse_traj_loc_pred_json(filepath):
     """Parse traj_loc_pred JSON file and extract ACC@1, ACC@5, ACC@10, ACC@20, MRR@20, NDCG@20"""
     with open(filepath, 'r') as f:
@@ -127,7 +181,28 @@ def get_rankings(task, dataset):
     if not os.path.exists(dataset_path):
         return jsonify([])
 
-    if task == 'traj_loc_pred':
+    if task == 'map_matching':
+        # Collect all model names from both CSV and JSON files
+        csv_files = glob.glob(os.path.join(dataset_path, '*.csv'))
+        json_files = glob.glob(os.path.join(dataset_path, '*.json'))
+        csv_models = {os.path.splitext(os.path.basename(f))[0]: f for f in csv_files}
+        json_models = {os.path.splitext(os.path.basename(f))[0]: f for f in json_files}
+        all_models = set(csv_models.keys()) | set(json_models.keys())
+
+        for model_name in all_models:
+            data = None
+            if model_name in csv_models:
+                # Prioritize CSV
+                data = parse_map_matching_csv(csv_models[model_name])
+            elif model_name in json_models:
+                # Fall back to JSON
+                data = parse_map_matching_json(json_models[model_name])
+            if data:
+                rankings.append({
+                    'model': model_name,
+                    'data': data
+                })
+    elif task == 'traj_loc_pred':
         json_files = glob.glob(os.path.join(dataset_path, '*.json'))
         for json_file in json_files:
             model_name = os.path.splitext(os.path.basename(json_file))[0]
@@ -158,4 +233,4 @@ def get_rankings(task, dataset):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8085)
+    app.run(debug=True, host='0.0.0.0', port=8086)
