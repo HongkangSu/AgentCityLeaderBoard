@@ -428,6 +428,16 @@
             color: #0f172a;
         }
 
+        .model-name a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .model-name a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
         /* Metric Values */
         .metric-value {
             font-family: 'JetBrains Mono', 'Monaco', 'Menlo', monospace;
@@ -572,6 +582,7 @@
                 <a href="/" class="nav-link">Home</a>
                 <a href="/quickstart" class="nav-link">Quick Start</a>
                 <a href="/leaderboard" class="nav-link active">LeaderBoard</a>
+                <a href="/AgentCity" class="nav-link">AgentCity</a>
             </div>
         </div>
     </nav>
@@ -607,6 +618,15 @@
         let tasksCache = null;
         let datasetsCache = {};
 
+        const taskDisplayNames = {
+            'traffic_state_pred': 'Traffic State Pred',
+            'eta': 'Estimated Time of Arrival',
+            'traj_loc_pred': 'Trajectory Location Prediction',
+            'map_matching': 'Map Matching'
+        };
+
+        let modelPdfLinks = {};
+
         // Parse URL parameters
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
@@ -630,6 +650,11 @@
             return response.json();
         }
 
+        function formatModelName(name) {
+            const url = modelPdfLinks[name];
+            return url ? `<a href="${url}" target="_blank" rel="noopener">${name}</a>` : name;
+        }
+
         function formatValue(val, isBest = false) {
             if (val === null || val === undefined) return '<span class="metric-value">-</span>';
             if (val === Infinity || val === 'inf' || !isFinite(val)) return '<span class="metric-value inf">inf</span>';
@@ -648,7 +673,7 @@
             breadcrumb.style.display = 'flex';
             let html = `<a href="/leaderboard">Tasks</a>`;
             html += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>`;
-            html += `<a href="/leaderboard?task=${currentTask}">${currentTask}</a>`;
+            html += `<a href="/leaderboard?task=${currentTask}">${taskDisplayNames[currentTask] || currentTask}</a>`;
 
             if (currentDataset) {
                 html += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>`;
@@ -725,7 +750,7 @@
                         <div class="card-icon">
                             ${taskIcons[task] || taskIcons['traffic_state_pred']}
                         </div>
-                        <h3>${task}</h3>
+                        <h3>${taskDisplayNames[task] || task}</h3>
                         <p>${taskDescriptions[task] || 'Click to view datasets and leaderboard'}</p>
                         <div class="card-meta">
                             <span>
@@ -756,7 +781,7 @@
 
             const datasets = datasetsCache[task];
 
-            let html = `<h2 class="section-title">${task} - Select a Dataset</h2>`;
+            let html = `<h2 class="section-title">${taskDisplayNames[task] || task} - Select a Dataset</h2>`;
 
             if (task === 'traffic_state_pred') {
                 html += `
@@ -956,7 +981,7 @@
                     tableHtml += `
                         <tr>
                             <td><span class="rank-badge ${rankClass}">${rank}</span></td>
-                            <td class="model-name">${item.model}</td>
+                            <td class="model-name">${formatModelName(item.model)}</td>
                             <td>${formatValue(d.rmf, d.rmf === bestRmf)}</td>
                             <td>${formatValue(d.an, d.an === bestAn)}</td>
                             <td>${formatValue(d.al, d.al === bestAl)}</td>
@@ -1033,7 +1058,7 @@
                     tableHtml += `
                         <tr>
                             <td><span class="rank-badge ${rankClass}">${rank}</span></td>
-                            <td class="model-name">${item.model}</td>
+                            <td class="model-name">${formatModelName(item.model)}</td>
                             <td>${formatValue(d.acc_1, d.acc_1 === bestAcc1)}</td>
                             <td>${formatValue(d.acc_5, d.acc_5 === bestAcc5)}</td>
                             <td>${formatValue(d.acc_10, d.acc_10 === bestAcc10)}</td>
@@ -1122,7 +1147,7 @@
                     tableHtml += `
                         <tr>
                             <td><span class="rank-badge ${rankClass}">${rank}</span></td>
-                            <td class="model-name">${item.model}</td>
+                            <td class="model-name">${formatModelName(item.model)}</td>
                             <td>${formatValue(mae, mae === bestMae)}</td>
                             <td>${formatValue(mape, mape === bestMape)}</td>
                             <td>${formatValue(rmse, rmse === bestRmse)}</td>
@@ -1177,6 +1202,7 @@
 
         // Initialize
         async function init() {
+            modelPdfLinks = await fetchJSON(`${API_BASE}/api/model_links`);
             const params = getUrlParams();
             if (params.task && params.dataset) {
                 await showLeaderboard(params.task, params.dataset);

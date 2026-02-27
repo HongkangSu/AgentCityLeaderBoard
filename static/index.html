@@ -345,7 +345,76 @@
             background: #fff;
         }
 
-        /* Responsive */
+        /* Demo Preview Card */
+        .demo-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .demo-preview {
+            background: linear-gradient(135deg, #0f172a, #1e3a8a);
+            padding: 40px 48px;
+            color: white;
+        }
+
+        .demo-preview h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .demo-preview p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .demo-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0 28px;
+        }
+
+        .demo-tag {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .demo-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            color: #1e40af;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .demo-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+
+        .demo-cta svg {
+            width: 18px;
+            height: 18px;
+        }
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.2rem;
@@ -379,6 +448,7 @@
                 <a href="/" class="nav-link active">Home</a>
                 <a href="/quickstart" class="nav-link">Quick Start</a>
                 <a href="/leaderboard" class="nav-link">LeaderBoard</a>
+                <a href="/AgentCity" class="nav-link">AgentCity</a>
             </div>
         </div>
     </nav>
@@ -492,26 +562,19 @@
             </div>
         </section>
 
-        <!-- Robustness Section -->
+
+        <!-- AgentCity Demo Section -->
         <section class="section">
-            <h2 class="section-title">Robustness & Refinement</h2>
-            <div class="architecture">
-                <p>
-                    To ensure robustness under heterogeneous inputs, each stage supports a bounded refinement loop.
-                    When a stage encounters unsatisfactory outcomes—such as low-quality search results, migration errors,
-                    or unstable evaluation performance—the Stage Leader analyzes the feedback and selectively re-invokes
-                    relevant Subagents to refine the result.
-                </p>
-                <p>
-                    These refinement loops are explicitly bounded by a maximum number of iterations, ensuring predictable
-                    execution time and preventing uncontrolled retries.
-                </p>
-                <p>
-                    Intermediate results from each stage are summarized into structured notes and passed to downstream
-                    stages by the Global Coordinator. This design allows later stages to reuse upstream decisions and
-                    constraints without reprocessing the same information, while keeping stage responsibilities clearly separated.
-                </p>
-            </div>
+            <h2 class="section-title">AgentCity</h2>
+            <p class="section-subtitle">
+                An autonomous multi-agent system that continuously discovers, migrates, and evaluates spatiotemporal models. This is a preview for customized usage.
+            </p>
+            <a href="/AgentCity/" class="demo-cta">
+                AgentCity Demo
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+            </a>
         </section>
     </main>
 

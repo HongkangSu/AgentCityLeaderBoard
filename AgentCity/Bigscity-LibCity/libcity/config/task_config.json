@@ -1,0 +1,1290 @@
+{
+    "traj_loc_pred": {
+        "allowed_model": [
+            "DeepMove",
+            "RNN",
+            "LSTM",
+            "GRU",
+            "FPMC",
+            "LSTPM",
+            "STRNN",
+            "SERM",
+            "TemplateTLP",
+            "ATSTLSTM",
+            "HSTLSTM",
+            "STAN",
+            "CARA",
+            "GeoSAN",
+            "LightPath",
+            "GETNext",
+            "LoTNext",
+            "DiffTraj",
+            "PLMTrajRec",
+            "GNPRSID",
+            "CoMaPOI",
+            "ROTAN",
+            "CLSPRec",
+            "AGRAN",
+            "PLSPL",
+            "PRME",
+            "CANOE",
+            "DCHL",
+            "JGRM",
+            "TrajSDE",
+            "RNTrajRec",
+            "GraphMM",
+            "DeepMM"
+        ],
+        "allowed_dataset": [
+            "foursquare_tky",
+            "foursquare_nyc",
+            "gowalla",
+            "foursquare_serm",
+            "Proto"
+        ],
+        "GeoSAN": {
+            "dataset_class": "GeoSANDataset",
+            "executor": "GeoSANExecutor",
+            "evaluator": "GeoSANEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "DeepMove": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "RNN": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "LSTM": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "GRU": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "FPMC": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "LSTPM": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "LstpmEncoder"
+        },
+        "STRNN": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StrnnEncoder"
+        },
+        "SERM": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "SermEncoder"
+        },
+        "STAN": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StanEncoder"
+        },
+        "ATSTLSTM": {
+            "dataset_class": "PBSTrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "AtstlstmEncoder"
+        },
+        "HSTLSTM": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "HstlstmEncoder"
+        },
+        "CARA": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "CARALocPredEvaluator",
+            "traj_encoder": "CARATrajectoryEncoder"
+        },
+        "LightPath": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "GETNext": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "LoTNext": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "DiffTraj": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "PLMTrajRec": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "PLMTrajRecEncoder"
+        },
+        "GNPRSID": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "CoMaPOI": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "ROTAN": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "CLSPRec": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "AGRAN": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "PLSPL": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "PRME": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "CANOE": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "DCHL": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "JGRM": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "JGRMEncoder"
+        },
+        "TrajSDE": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        },
+        "RNTrajRec": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajLocPredExecutor",
+            "evaluator": "TrajLocPredEvaluator",
+            "traj_encoder": "StandardTrajectoryEncoder"
+        }
+    },
+    "traffic_state_pred": {
+        "allowed_model": [
+            "DCRNN",
+            "STGCN",
+            "GWNET",
+            "AGCRN",
+            "TGCLSTM",
+            "TGCN",
+            "TemplateTSP",
+            "ASTGCN",
+            "MSTGCN",
+            "MTGNN",
+            "ACFM",
+            "STResNet",
+            "RNN",
+            "LSTM",
+            "GRU",
+            "AutoEncoder",
+            "Seq2Seq",
+            "STResNetCommon",
+            "ACFMCommon",
+            "ASTGCNCommon",
+            "MSTGCNCommon",
+            "ToGCN",
+            "CONVGCN",
+            "STG2Seq",
+            "DMVSTNet",
+            "ATDM",
+            "GMAN",
+            "GTS",
+            "STDN",
+            "HGCN",
+            "STSGCN",
+            "STAGGCN",
+            "STNN",
+            "ResLSTM",
+            "DGCN",
+            "MultiSTGCnet",
+            "STMGAT",
+            "CRANN",
+            "STTN",
+            "CONVGCNCommon",
+            "DSAN",
+            "DKFN",
+            "CCRNN",
+            "MultiSTGCnetCommon",
+            "GEML",
+            "FNN",
+            "GSNet",
+            "CSTN",
+            "D2STGNN",
+            "STID",
+            "STGODE",
+            "STNorm",
+            "DMSTGCN",
+            "ESG",
+            "SSTBAN",
+            "STTSNet",
+            "FOGS",
+            "RGSL",
+            "DSTAGNN",
+            "STPGCN",
+            "HIEST",
+            "STAEformer",
+            "TESTAM",
+            "MultiSPANS",
+            "SimST",
+            "TimeMixer",
+            "MegaCRN",
+            "Trafformer",
+            "STSSL",
+            "STWave",
+            "UrbanDiT",
+            "PDFormer",
+            "STGNCDE",
+            "ASTGNN",
+            "ASTGNNCommon",
+            "FreTS",
+            "PatchSTG",
+            "LSTGAN",
+            "MLCAFormer",
+            "TimerXL",
+            "RSTIB",
+            "GriddedTNP",
+            "EAC",
+            "SRSNet",
+            "STSSDL",
+            "PatchTST",
+            "STDMAE",
+            "UniST",
+            "Uni2TS",
+            "BigST",
+            "LSTTN",
+            "FUSETraffic",
+            "LightST",
+            "AutoSTF",
+            "ASeer",
+            "DSTMamba",
+            "STHSepNet",
+            "HSTWAVE",
+            "MTSTAN",
+            "STLLM",
+            "TGraphormer",
+            "DCST",
+            "CKGGNN",
+            "EasyST",
+            "LEAF",
+            "MetaDG",
+            "HiMSNet",
+            "TRACK",
+            "TimeMixerPP",
+            "DST2former",
+            "Fredformer",
+            "ConvTimeNet",
+            "FlashST",
+            "Pathformer",
+            "GNNRF",
+            "FCNNBus",
+            "Garner",
+            "MVGRL"
+        ],
+        "allowed_dataset": [
+            "ANTWERP",
+            "Bangkok",
+            "Barcelona",
+            "METR_LA",
+            "PEMS_BAY",
+            "PEMSD3",
+            "PEMSD4",
+            "PEMSD7",
+            "PEMSD8",
+            "PEMSD7(M)",
+            "LOOP_SEATTLE",
+            "LOS_LOOP",
+            "LOS_LOOP_SMALL",
+            "Q_TRAFFIC",
+            "SZ_TAXI",
+            "NYCBike20140409",
+            "NYCBike20160708",
+            "NYCBike20160809",
+            "NYCTaxi20140112",
+            "NYCTaxi20150103",
+            "NYCTaxi20160102",
+            "TAXIBJ",
+            "T_DRIVE20150206",
+            "BEIJING_SUBWAY_10MIN",
+            "BEIJING_SUBWAY_15MIN",
+            "BEIJING_SUBWAY_30MIN",
+            "ROTTERDAM",
+            "HZMETRO",
+            "SHMETRO",
+            "M_DENSE",
+            "PORTO",
+            "NYCTAXI_DYNA",
+            "NYCTAXI_OD",
+            "NYCTAXI_GRID",
+            "T_DRIVE_SMALL",
+            "NYCBIKE",
+            "AUSTINRIDE",
+            "BIKEDC",
+            "BIKECHI",
+            "NYC_RISK",
+            "CHICAGO_RISK",
+            "NYCTAXI20140112_FLOW"
+        ],
+        "FreTS": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ASTGNNCommon": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "ASTGNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ASTGNN": {
+            "dataset_class": "ASTGCNDataset",
+            "executor": "ASTGNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STGNCDE": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "PDFormer": {
+            "dataset_class": "PDFormerDataset",
+            "executor": "PDFormerExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STWave": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "UrbanDiT": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STSSL": {
+            "dataset_class": "ACFMDataset",
+            "executor": "STSSLExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "Trafformer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafformerExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "PatchSTG": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MegaCRN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "MegaCRNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TimeMixer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "SimST": {
+            "dataset_class": "SimSTDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "HIEST": {
+            "dataset_class": "HIESTDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TESTAM": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TESTAMExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STAEformer": {
+            "dataset_class": "STAEformerDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MultiSPANS": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STPGCN": {
+            "dataset_class": "STPGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DSTAGNN": {
+            "dataset_class": "DSTAGNNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "RGSL": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "FOGS": {
+            "dataset_class": "FOGSDataset",
+            "executor": "FOGSExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STTSNet": {
+            "dataset_class": "STTSNetDataset",
+            "executor": "STTSNetExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "SSTBAN": {
+            "dataset_class": "SSTBANDataset",
+            "executor": "SSTBANExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ESG": {
+            "dataset_class": "ESGDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DMSTGCN": {
+            "dataset_class": "DMSTGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STGODE": {
+            "dataset_class": "STGODEDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STNorm": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DCRNN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "DCRNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STGCN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GWNET": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "AGCRN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TGCLSTM": {
+            "dataset_class": "TGCLSTMDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TGCN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TemplateTSP": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ASTGCN": {
+            "dataset_class": "ASTGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MSTGCN": {
+            "dataset_class": "ASTGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MTGNN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "MTGNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ACFM": {
+            "dataset_class": "ACFMDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STResNet": {
+            "dataset_class": "STResNetDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "RNN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "LSTM": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GRU": {
+            "dataset_class": "TrafficStateGridDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "AutoEncoder": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "Seq2Seq": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STResNetCommon": {
+            "dataset_class": "TrafficStateGridDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ACFMCommon": {
+            "dataset_class": "TrafficStateGridDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ASTGCNCommon": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MSTGCNCommon": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ToGCN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "CONVGCN": {
+            "dataset_class": "CONVGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STG2Seq": {
+            "dataset_class": "STG2SeqDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DMVSTNet": {
+            "dataset_class": "DMVSTNetDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ATDM": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GMAN": {
+            "dataset_class": "GMANDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GTS": {
+            "dataset_class": "GTSDataset",
+            "executor": "DCRNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STDN": {
+            "dataset_class": "STDNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "HGCN": {
+            "dataset_class": "HGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STSGCN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STAGGCN": {
+            "dataset_class": "STAGGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STNN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ResLSTM": {
+            "dataset_class": "RESLSTMDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DGCN": {
+            "dataset_class": "ASTGCNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MultiSTGCnet": {
+            "dataset_class": "MultiSTGCnetDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STMGAT": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "CRANN": {
+            "dataset_class": "CRANNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DKFN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STTN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "CONVGCNCommon": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DSAN": {
+            "dataset_class": "TrafficStateGridDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "CCRNN": {
+            "dataset_class": "CCRNNDataset",
+            "executor": "DCRNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MultiSTGCnetCommon": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GEML": {
+            "dataset_class": "TrafficStateOdDataset",
+            "executor": "GEMLExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "FNN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GSNet": {
+            "dataset_class": "GSNetDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficAccidentEvaluator"
+        },
+        "CSTN": {
+            "dataset_class": "CSTNDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "D2STGNN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "DCRNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STID": {
+            "dataset_class": "TrafficStateGridDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "LSTGAN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MLCAFormer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TimerXL": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "RSTIB": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GriddedTNP": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "EAC": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "SRSNet": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STSSDL": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "PatchTST": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STDMAE": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "UniST": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "Uni2TS": {
+            "dataset_class": "TrafficStateGridDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "BigST": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "LSTTN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "LightST": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "FUSETraffic": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "DCRNNExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "AutoSTF": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ASeer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DSTMamba": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STHSepNet": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "HSTWAVE": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MTSTAN": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "STLLM": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TGraphormer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DCST": {
+            "dataset_class": "STAEformerDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "CKGGNN": {
+            "dataset_class": "TrafficStateContextKGDataset",
+            "executor": "KgContextExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "EasyST": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "LEAF": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MetaDG": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "HiMSNet": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TRACK": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "TimeMixerPP": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "DST2former": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "Fredformer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "ConvTimeNet": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "FlashST": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "Pathformer": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "GNNRF": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "FCNNBus": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "Garner": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        },
+        "MVGRL": {
+            "dataset_class": "TrafficStatePointDataset",
+            "executor": "TrafficStateExecutor",
+            "evaluator": "TrafficStateEvaluator"
+        }
+    },
+    "eta": {
+        "allowed_model": [
+            "DeepTTE",
+            "TTPNet",
+            "MulT_TTE",
+            "LightPath",
+            "DOT",
+            "DutyTTE",
+            "MDTI",
+            "HierETA",
+            "HetETA",
+            "ProbETA",
+            "MVSTM",
+            "MetaTTE"
+        ],
+        "allowed_dataset": [
+            "Chengdu_Taxi_Sample1",
+            "Beijing_Taxi_Sample"
+        ],
+        "DeepTTE": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "DeeptteEncoder"
+        },
+        "TTPNet": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "TtpnetEncoder"
+        },
+        "MulT_TTE": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "MultTTEEncoder"
+        },
+        "LightPath": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "LightPathEncoder"
+        },
+        "DOT": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "DOTEncoder"
+        },
+        "DutyTTE": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "DutyTTEEncoder"
+        },
+        "MDTI": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "MDTIEncoder"
+        },
+        "HierETA": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "HierETAEncoder"
+        },
+        "HetETA": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "HetETAEncoder"
+        },
+        "ProbETA": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "ProbETAEncoder"
+        },
+        "MVSTM": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "MVSTMEncoder"
+        },
+        "MetaTTE": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "ETAEvaluator",
+            "eta_encoder": "DeeptteEncoder"
+        }
+    },
+    "map_matching": {
+        "allowed_model": [
+            "STMatching",
+            "IVMM",
+            "HMMM",
+            "FMM",
+            "STMatch",
+            "DeepMM",
+            "DiffMM",
+            "TRMMA",
+            "GraphMM",
+            "RLOMM",
+            "L2MM"
+        ],
+        "allowed_dataset": [
+            "Neftekamsk",
+            "Valky",
+            "Ruzhany",
+            "Santander",
+            "Spaichingen",
+            "NovoHamburgo",
+            "global",
+            "Seattle"
+        ],
+        "STMatching": {
+            "dataset_class": "MapMatchingDataset",
+            "executor": "MapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "IVMM": {
+            "dataset_class": "MapMatchingDataset",
+            "executor": "MapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "HMMM": {
+            "dataset_class": "MapMatchingDataset",
+            "executor": "MapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "FMM": {
+            "dataset_class": "MapMatchingDataset",
+            "executor": "MapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "STMatch": {
+            "dataset_class": "MapMatchingDataset",
+            "executor": "MapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "DeepMM": {
+            "dataset_class": "DeepMMSeq2SeqDataset",
+            "executor": "DeepMapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "DiffMM": {
+            "dataset_class": "DiffMMDataset",
+            "executor": "DeepMapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "TRMMA": {
+            "dataset_class": "MapMatchingDataset",
+            "executor": "DeepMapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "GraphMM": {
+            "dataset_class": "DeepMapMatchingDataset",
+            "executor": "DeepMapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "RLOMM": {
+            "dataset_class": "DeepMapMatchingDataset",
+            "executor": "DeepMapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        },
+        "L2MM": {
+            "dataset_class": "DeepMMSeq2SeqDataset",
+            "executor": "DeepMapMatchingExecutor",
+            "evaluator": "MapMatchingEvaluator"
+        }
+    },
+    "road_representation": {
+        "allowed_model": [
+            "ChebConv",
+            "LINE",
+            "GAT",
+            "Node2Vec",
+            "DeepWalk",
+            "GeomGCN",
+            "SARN",
+            "CCASSG",
+            "Highway2Vec"
+        ],
+        "allowed_dataset": [
+            "BJ_roadmap"
+        ],
+        "ChebConv": {
+            "dataset_class": "ChebConvDataset",
+            "executor": "ChebConvExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "LINE": {
+            "dataset_class": "LINEDataset",
+            "executor": "LINEExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "GeomGCN": {
+            "dataset_class": "ChebConvDataset",
+            "executor": "ChebConvExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "GAT": {
+            "dataset_class": "ChebConvDataset",
+            "executor": "ChebConvExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "Node2Vec": {
+            "dataset_class": "RoadNetWorkDataset",
+            "executor": "GensimExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "DeepWalk": {
+            "dataset_class": "RoadNetWorkDataset",
+            "executor": "GensimExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "SARN": {
+            "dataset_class": "ChebConvDataset",
+            "executor": "ChebConvExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "CCASSG": {
+            "dataset_class": "ChebConvDataset",
+            "executor": "ChebConvExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        },
+        "Highway2Vec": {
+            "dataset_class": "ChebConvDataset",
+            "executor": "ChebConvExecutor",
+            "evaluator": "RoadRepresentationEvaluator"
+        }
+    },
+    "trajectory_embedding": {
+        "allowed_model": [
+            "START",
+            "BERT",
+            "BERTLM",
+            "BERTContrastive",
+            "BERTContrastiveLM",
+            "BERTDownstream",
+            "LinearETA",
+            "LinearClassify",
+            "LinearSim",
+            "LinearNextLoc",
+            "JCLRNT"
+        ],
+        "allowed_dataset": [
+            "geolife",
+            "porto",
+            "bj_taxi"
+        ],
+        "START": {
+            "dataset_class": "ContrastiveSplitLMDataset",
+            "executor": "ContrastiveSplitMLMExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "BERT": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajEmbeddingExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "BERTLM": {
+            "dataset_class": "BERTLMDataset",
+            "executor": "BertBaseExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "BERTContrastive": {
+            "dataset_class": "ContrastiveDataset",
+            "executor": "ContrastiveExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "BERTContrastiveLM": {
+            "dataset_class": "ContrastiveLMDataset",
+            "executor": "ContrastiveMLMExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "BERTDownstream": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajEmbeddingExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "LinearETA": {
+            "dataset_class": "ETADataset",
+            "executor": "ETAExecutor",
+            "evaluator": "RegressionEvaluator"
+        },
+        "LinearClassify": {
+            "dataset_class": "TrajClassifyDataset",
+            "executor": "TrajClassifyExecutor",
+            "evaluator": "TwoClassificationEvaluator"
+        },
+        "LinearSim": {
+            "dataset_class": "SimilarityDataset",
+            "executor": "SimilarityExecutor",
+            "evaluator": "SimilarityEvaluator"
+        },
+        "LinearNextLoc": {
+            "dataset_class": "NextLocDataset",
+            "executor": "NextLocExecutor",
+            "evaluator": "ClassificationEvaluator"
+        },
+        "JCLRNT": {
+            "dataset_class": "TrajectoryDataset",
+            "executor": "TrajEmbeddingExecutor",
+            "evaluator": "TrajLocPredEvaluator"
+        }
+    }
+}

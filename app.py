@@ -1,14 +1,43 @@
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify, send_from_directory, request, Response, redirect
 from flask_cors import CORS
 import os
 import csv
 import glob
 import json
+import sys
+import multiprocessing
+import requests as req_lib
 
 app = Flask(__name__, static_folder='static')
 CORS(app)
 
 RESULT_DIR = os.path.join(os.path.dirname(__file__), 'result')
+MIGRATION_JSON = os.path.join(os.path.dirname(__file__), 'migration_all.json')
+AGENTCITY_DIR = os.path.join(os.path.dirname(__file__), 'AgentCity')
+AGENTCITY_PORT = 8000
+AGENTCITY_BASE = f'http://localhost:{AGENTCITY_PORT}'
+
+
+def _run_uvicorn():
+    """Entry point for the AgentCity backend process."""
+    sys.path.insert(0, AGENTCITY_DIR)
+    os.chdir(AGENTCITY_DIR)
+    import uvicorn
+    uvicorn.run('server:app', host='0.0.0.0', port=AGENTCITY_PORT)
+
+
+def start_agentcity():
+    """Start AgentCity FastAPI backend in a new process if not already running."""
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        if s.connect_ex(('localhost', AGENTCITY_PORT)) == 0:
+            return  # already running
+    if os.environ.get('WERKZEUG_RUN_MAIN') != 'true':
+        return  # only start in the reloader child process, not the monitor
+    proc = multiprocessing.Process(target=_run_uvicorn, daemon=True)
+    proc.start()
+
+start_agentcity()
 
 def parse_traffic_state_pred_csv(filepath):
     """Parse traffic_state_pred CSV file and extract step 3,6,9,12 and average"""
@@ -132,6 +161,68 @@ def parse_traj_loc_pred_json(filepath):
     return result
 
 
+@app.route('/api/model_links')
+def get_model_links():
+    """Get model_name -> pdf_link mapping from migration_all.json"""
+    links = {}
+    if os.path.exists(MIGRATION_JSON):
+        with open(MIGRATION_JSON, 'r') as f:
+            data = json.load(f)
+        for entry in data:
+            name = entry.get('model_name')
+            pdf = entry.get('pdf_link')
+            if name and pdf:
+                links[name] = pdf
+    return jsonify(links)
+
+
+@app.route('/AgentCity')
+def agentcity():
+    return redirect('/AgentCity/')
+
+
+@app.route('/AgentCity/')
+def agentcity_index():
+    return send_from_directory(os.path.join(AGENTCITY_DIR, 'frontend'), 'index.html')
+
+
+@app.route('/AgentCity/static/<path:filename>')
+@app.route('/AgentCity/<path:filename>')
+def agentcity_static(filename):
+    return send_from_directory(os.path.join(AGENTCITY_DIR, 'frontend'), filename)
+
+
+HOP_BY_HOP_HEADERS = frozenset([
+    'connection', 'keep-alive', 'proxy-authenticate', 'proxy-authorization',
+    'te', 'trailers', 'transfer-encoding', 'upgrade',
+    'server', 'date',
+])
+
+@app.route('/AgentCity/api', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+@app.route('/AgentCity/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+@app.route('/api', defaults={'path': ''}, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+@app.route('/api/<path:path>', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+def agentcity_proxy(path):
+    url = f'{AGENTCITY_BASE}/api/{path}'
+    try:
+        resp = req_lib.request(
+            method=request.method,
+            url=url,
+            headers={k: v for k, v in request.headers if k.lower() != 'host'},
+            data=request.get_data(),
+            params=request.args,
+            timeout=60,
+            allow_redirects=False,
+        )
+        filtered_headers = {
+            k: v for k, v in resp.headers.items()
+            if k.lower() not in HOP_BY_HOP_HEADERS
+        }
+        return Response(resp.content, status=resp.status_code, headers=filtered_headers)
+    except req_lib.exceptions.ConnectionError:
+        return jsonify({'error': 'AgentCity backend unavailable'}), 503
+
+
 @app.route('/')
 def index():
     return send_from_directory('static', 'index.html')
@@ -233,4 +324,4 @@ def get_rankings(task, dataset):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8086)
+    app.run(debug=True, host='0.0.0.0', port=8001)

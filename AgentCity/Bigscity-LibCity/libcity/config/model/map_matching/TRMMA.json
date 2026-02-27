@@ -1,0 +1,53 @@
+{
+    "model": "TRMMA",
+    "task": "map_matching",
+
+    "hid_dim": 256,
+    "id_emb_dim": 128,
+    "transformer_layers": 4,
+    "heads": 4,
+    "dropout": 0.1,
+
+    "pro_features_flag": true,
+    "pro_input_dim": 48,
+    "pro_output_dim": 64,
+    "learn_pos": true,
+    "da_route_flag": true,
+    "srcseg_flag": true,
+    "rid_feats_flag": false,
+    "rid_fea_dim": 8,
+
+    "dest_type": 1,
+    "rate_flag": true,
+    "prog_flag": false,
+
+    "lambda1": 10,
+    "lambda2": 5,
+    "teacher_forcing_ratio": 1.0,
+
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "max_epoch": 50,
+    "epochs": 50,
+    "optimizer": "adam",
+    "weight_decay": 0.0001,
+    "lr_scheduler": "reducelronplateau",
+    "lr_decay": 0.8,
+    "lr_step": 2,
+    "clip_grad_norm": true,
+    "max_grad_norm": 1.0,
+
+    "use_early_stop": true,
+    "patience": 5,
+    "log_every": 1,
+    "saved": true,
+    "save_mode": "best",
+    "load_best_epoch": true,
+    "hyper_tune": false,
+
+    "keep_ratio": 0.125,
+    "grid_size": 50,
+    "max_input_length": 500,
+    "candi_size": 20,
+    "evaluate_method": "all"
+}

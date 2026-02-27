@@ -1,0 +1,36 @@
+{
+    "model": "L2MM",
+    "task": "traj_loc_pred",
+
+    "hidden_size": 256,
+    "embedding_size": 256,
+    "num_layers": 2,
+    "de_layer": 1,
+    "dropout": 0.1,
+    "bidirectional": true,
+    "cluster_size": 10,
+    "criterion_name": "CE",
+    "max_length": 300,
+    "teacher_forcing_ratio": 1.0,
+    "training_mode": "train",
+
+    "latent_weight": 1.0,
+    "cate_weight": 0.1,
+
+    "latent_init_path": null,
+    "pretrain_checkpoint": null,
+
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "max_epoch": 10,
+    "optimizer": "adam",
+    "learner": "adam",
+    "clip": 5.0,
+    "lr_step": 20,
+    "lr_decay": 0.5,
+    "lr_scheduler": "steplr",
+    "log_every": 1,
+    "load_best_epoch": true,
+    "hyper_tune": false,
+    "patience": 10
+}

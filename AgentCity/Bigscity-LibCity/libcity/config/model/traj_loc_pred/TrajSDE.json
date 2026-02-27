@@ -1,0 +1,32 @@
+{
+    "model_name": "TrajSDE",
+
+    "embed_dim": 64,
+    "num_modes": 6,
+    "num_heads": 8,
+    "dropout": 0.1,
+    "historical_steps": 10,
+    "hidden_size": 128,
+    "num_global_layers": 3,
+    "sde_layers": 2,
+    "rtol": 0.001,
+    "atol": 0.001,
+    "step_size": 0.1,
+
+    "learning_rate": 0.001,
+    "weight_decay": 0.0007,
+    "lr_decay": 0.5,
+    "batch_size": 32,
+    "max_epoch": 100,
+    "learner": "adam",
+    "lr_step": 20,
+    "clip_grad_norm": true,
+    "max_grad_norm": 5.0,
+    "lr_scheduler": "MultiStepLR",
+    "lr_scheduler_milestones": [50, 80],
+    "lr_scheduler_gamma": 0.5,
+    "optimizer": "adam",
+    "validate_epoch": 5,
+    "early_stop_patience": 20,
+    "log_batch": 100
+}

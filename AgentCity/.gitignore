@@ -1,0 +1,10 @@
+__pycache__/
+data/
+/repos/
+/tests/
+raw_data/
+cache/
+/claude_code.log
+/.claude/
+/batch_logs/
+/datasets/
