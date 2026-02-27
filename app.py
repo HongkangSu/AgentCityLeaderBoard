@@ -176,7 +176,36 @@ def get_model_links():
     return jsonify(links)
 
 
-@app.route('/AgentCity')
+@app.route('/api/paper_search')
+def paper_search():
+    """Search papers in migration_all.json by keyword relevance."""
+    keyword = request.args.get('q', '').lower().strip()
+    if not keyword or not os.path.exists(MIGRATION_JSON):
+        return jsonify([])
+    with open(MIGRATION_JSON, 'r') as f:
+        data = json.load(f)
+    terms = keyword.split()
+
+    def score(entry):
+        text = ' '.join([
+            entry.get('title', ''),
+            entry.get('model_name', ''),
+            entry.get('conference', ''),
+            ' '.join(entry.get('datasets', [])),
+        ]).lower()
+        return sum(text.count(t) for t in terms)
+
+    scored = [(score(e), e) for e in data if e.get('title') and e.get('pdf_link')]
+    scored = [(s, e) for s, e in scored if s > 0]
+    scored.sort(key=lambda x: x[0], reverse=True)
+    results = [
+        {'title': e.get('title'), 'pdf_link': e.get('pdf_link')}
+        for _, e in scored[:5]
+    ]
+    return jsonify(results)
+
+
+
 def agentcity():
     return redirect('/AgentCity/')
 

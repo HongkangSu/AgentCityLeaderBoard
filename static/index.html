@@ -345,6 +345,100 @@
             background: #fff;
         }
 
+        /* Paper Search */
+        .search-box {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #1e40af;
+        }
+
+        .search-btn {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.35);
+        }
+
+        .search-results {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .paper-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        .paper-item:hover {
+            border-color: #1e40af;
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.12);
+        }
+
+        .paper-title {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #0f172a;
+            line-height: 1.5;
+        }
+
+        .paper-link {
+            flex-shrink: 0;
+            padding: 6px 16px;
+            background: #eff6ff;
+            color: #1e40af;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .paper-link:hover {
+            background: #dbeafe;
+        }
+
+        .search-empty {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-top: 16px;
+        }
+
         /* Demo Preview Card */
         .demo-card {
             background: white;
@@ -563,6 +657,17 @@
         </section>
 
 
+        <!-- Paper Search Section -->
+        <section class="section">
+            <h2 class="section-title">Paper Search</h2>
+            <p class="section-subtitle">Search for spatiotemporal papers in our library by keyword.</p>
+            <div class="search-box">
+                <input type="text" id="paper-search-input" class="search-input" placeholder="" />
+                <button class="search-btn" onclick="searchPapers()">Search</button>
+            </div>
+            <div class="search-results" id="search-results"></div>
+        </section>
+
         <!-- AgentCity Demo Section -->
         <section class="section">
             <h2 class="section-title">AgentCity</h2>
@@ -582,5 +687,31 @@
     <footer class="footer">
         <p>AgentCity - Multi-Agent Framework for Spatiotemporal Benchmarks</p>
     </footer>
+    <script>
+        async function searchPapers() {
+            const q = document.getElementById('paper-search-input').value.trim();
+            const container = document.getElementById('search-results');
+            if (!q) return;
+            container.innerHTML = '<p class="search-empty">Searching...</p>';
+            const resp = await fetch('/api/paper_search?q=' + encodeURIComponent(q));
+            const results = await resp.json();
+            if (results.length === 0) {
+                container.innerHTML = '<p class="search-empty">No matching papers found.</p>';
+                return;
+            }
+            container.innerHTML = results.map(p => `
+                <div class="paper-item">
+                    <span class="paper-title">${p.title}</span>
+                    <a href="${p.pdf_link}" target="_blank" class="paper-link">PDF</a>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('paper-search-input').addEventListener('keydown', e => {
+                if (e.key === 'Enter') searchPapers();
+            });
+        });
+    </script>
 </body>
 </html>
